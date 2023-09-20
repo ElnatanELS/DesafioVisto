@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: 'home', loadComponent: () => import('./pages/home/home.component').then(c => c.HomeComponent) },
-  // { path: 'about/:id', component: AboutComponent },
+  { path: 'detail/:id', loadComponent: () => import('./pages/detail/detail.component').then(c => c.DetailComponent)},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   // {
   //   path: '**', component: Error404Component

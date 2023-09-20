@@ -15,7 +15,7 @@
       <mat-icon>search</mat-icon>
     </button>
   </div>
-  <div class="grid grid-cols-5 mx-28">
+  <div class="grid grid-cols-5 mx-28 gap-3">
     <app-card class="mb-7"></app-card>
     <app-card class="mb-7"></app-card>
     <app-card class="mb-7"></app-card>
@@ -30,7 +30,7 @@
   <div class="flex justify-center" >
     <mat-paginator
     color="warn"
-    class="rounded-full bg-red-500 text-white mb-2"
+    class="rounded-full bg-red-500 text-black mb-2"
 
                  (page)="handlePageEvent($event)"
                  [length]="length"
