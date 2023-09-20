@@ -1,0 +1,48 @@
+<div class=" bg-black">
+  <div class="flex justify-end items-baseline">
+    <mat-form-field class="rounded-full me-3 caret-slate-600 " >
+      <mat-label>Titulo</mat-label>
+      <input class="rounded-full" matInput #input >
+    </mat-form-field>
+
+    <mat-form-field class="rounded-full me-3">
+      <mat-label >Lançamento</mat-label>
+      <mat-select [disabled]="true">
+        <mat-option value="option">Option</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button class="bg-red-500 rounded-full  pt-[2px] h-7 w-7 align-middle text-white me-3">
+      <mat-icon>search</mat-icon>
+    </button>
+  </div>
+  <div class="grid grid-cols-5 mx-28">
+    <app-card class="mb-7"></app-card>
+    <app-card class="mb-7"></app-card>
+    <app-card class="mb-7"></app-card>
+    <app-card class="mb-7"></app-card>
+    <app-card class="mb-7"></app-card>
+    <app-card class="mb-7"></app-card>
+    <app-card class="mb-7"></app-card>
+    <app-card class="mb-7"></app-card>
+
+
+  </div>
+  <div class="flex justify-center" >
+    <mat-paginator
+    color="warn"
+    class="rounded-full bg-red-500 text-white mb-2"
+
+                 (page)="handlePageEvent($event)"
+                 [length]="length"
+                 [pageSize]="pageSize"
+                 [disabled]="disabled"
+                 [showFirstLastButtons]="showFirstLastButtons"
+                 [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
+                 [hidePageSize]="true"
+                 [pageIndex]="pageIndex"
+                 aria-label="Select page">
+  </mat-paginator>
+
+  </div>
+
+</div>
