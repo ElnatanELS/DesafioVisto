@@ -4,7 +4,7 @@ import { MovieDetail } from '../../shared/models/movie-detail';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { LoadingComponent } from 'src/app/shared/components/loading/loading/loading.component';
+import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-detail',

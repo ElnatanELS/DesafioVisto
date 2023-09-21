@@ -9,7 +9,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { CardComponent } from 'src/app/shared/components/card/card.component';
-import { LoadingComponent } from 'src/app/shared/components/loading/loading/loading.component';
+import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
 import { Movie } from 'src/app/shared/models/movie';
 import { rangeNumber } from 'src/app/shared/utils/rangeNumber';
 import { MovieService } from './../../core/services/movie.service';
