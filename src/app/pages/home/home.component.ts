@@ -1,24 +1,23 @@
-import { Router } from '@angular/router';
-import { MovieService } from './../../core/services/movie.service';
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatSelectModule} from '@angular/material/select'
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import {MatPaginatorModule, PageEvent} from '@angular/material/paginator';
-import { Movie } from 'src/app/shared/models/movie';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
+import { Router } from '@angular/router';
 import { CardComponent } from 'src/app/shared/components/card/card.component';
-import { range, Observable } from 'rxjs';
+import { LoadingComponent } from 'src/app/shared/components/loading/loading/loading.component';
+import { Movie } from 'src/app/shared/models/movie';
 import { rangeNumber } from 'src/app/shared/utils/rangeNumber';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MovieService } from './../../core/services/movie.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CardComponent, MatFormFieldModule, MatDatepickerModule, MatSelectModule, MatIconModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, CardComponent, MatFormFieldModule, MatDatepickerModule, MatSelectModule, MatIconModule, MatInputModule, MatPaginatorModule,  ReactiveFormsModule, FormsModule, LoadingComponent],
   providers: [MovieService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
@@ -94,6 +93,7 @@ export class HomeComponent implements OnInit{
 
   resetForm(){
     this.form.reset();
+    this.form.controls['year'].disable()
     this.getMovies(0)
   }
 

@@ -45,12 +45,7 @@
     </form>
   </div>
   <div *ngIf="loading" class="flex justify-center p-80">
-    <mat-progress-spinner
-      class="example-margin"
-      color="warn"
-      mode="indeterminate"
-    >
-    </mat-progress-spinner>
+    <app-loading></app-loading>
   </div>
   <div *ngIf="!loading" class="grid grid-cols-5 mx-28 gap-3">
     <ng-container *ngFor="let movie of movies">
