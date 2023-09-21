@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,19 +22,30 @@ import { MovieService } from './../../core/services/movie.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CardComponent, MatFormFieldModule, MatDatepickerModule, MatSelectModule, MatIconModule, MatInputModule, MatPaginatorModule,  ReactiveFormsModule, FormsModule, LoadingComponent],
+  imports: [
+    CommonModule,
+    CardComponent,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatSelectModule,
+    MatIconModule,
+    MatInputModule,
+    MatPaginatorModule,
+    ReactiveFormsModule,
+    FormsModule,
+    LoadingComponent,
+  ],
   providers: [MovieService],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
   length = 50;
   pageSize = 20;
   pageIndex = 0;
-  movies:Movie[] =[]
+  movies: Movie[] = [];
 
-  years = rangeNumber(1960,2023)
-
+  years = rangeNumber(1960, 2023);
 
   hidePageSize = true;
   showPageSizeOptions = true;
@@ -37,78 +53,66 @@ export class HomeComponent implements OnInit{
   disabled = false;
   loading = false;
   form: FormGroup = new FormGroup({
-    title: new FormControl(),
-    year: new FormControl({value:'',disabled:true}),
+    title: new FormControl(''),
+    year: new FormControl({ value: '', disabled: true }),
   });
-  constructor(private movieService:MovieService, private router:Router){}
+  constructor(private movieService: MovieService, private router: Router) {}
 
   ngOnInit(): void {
-    this.disabledYear()
-    this.getMovies(this.pageIndex)
+    this.disabledYear();
+    this.getMovies(this.pageIndex);
   }
 
-  disabledYear(){
-    this.form.valueChanges.subscribe(
-      (value) => {
-        if(value.title != ''){
-          this.form.controls['year'].enable()
-        } else {
-          this.form.controls['year'].disable()
-
-        }
+  disabledYear() {
+    this.form.valueChanges.subscribe((value) => {
+      if (value.title != '') {
+        this.form.controls['year'].enable();
+      } else {
+        this.form.controls['year'].disable();
       }
-    )
+    });
   }
 
-
-
-
-
-  getMovies(pages:number){
+  getMovies(pages: number) {
     this.loading = true;
-    this.movieService.getMovies(pages + 1).subscribe(
-      res => {
-        this.length = res.total_results;
-        this.pageIndex = res.page - 1;
-        this.movies = res.results;
-        this.loading = false;
-
-      }
-    )
+    this.movieService.getMovies(pages + 1).subscribe((res) => {
+      this.length = res.total_results;
+      this.pageIndex = res.page - 1;
+      this.movies = res.results;
+      this.loading = false;
+    });
   }
-  getSearchMovies(pages:number){
+  getSearchMovies(pages: number) {
     this.loading = true;
-    console.log(this.form.value);
 
-    this.movieService.getSearchMovie(pages + 1, this.form.value.title, this.form.value.year).subscribe(
-      res => {
-        this.length = res.total_results;
-        this.pageIndex = res.page - 1;
-        this.movies = res.results;
-        this.loading = false;
-
-      }
-    )
+    if (this.form.value.title === '') {
+      this.getMovies(this.pageIndex);
+    } else {
+      this.movieService
+        .getSearchMovie(pages + 1, this.form.value.title, this.form.value.year)
+        .subscribe((res) => {
+          this.length = res.total_results;
+          this.pageIndex = res.page - 1;
+          this.movies = res.results;
+          this.loading = false;
+        });
+    }
   }
 
-  resetForm(){
+  resetForm() {
     this.form.reset();
-    this.form.controls['year'].disable()
-    this.getMovies(0)
+    this.form.controls['year'].disable();
+    this.getMovies(0);
   }
 
   handlePageEvent(e: PageEvent) {
-
     this.length = e.length;
     this.pageSize = e.pageSize;
     this.pageIndex = e.pageIndex;
-    this.getMovies(e.pageIndex)
+    this.getMovies(e.pageIndex);
   }
 
-  rediretcToDetail(e:any){
+  rediretcToDetail(e: any) {
     this.router.navigate(['/detail/' + e]);
   }
-
-
-
 }
