@@ -7,15 +7,26 @@
 
     <mat-form-field class="rounded-full me-3">
       <mat-label >Lançamento</mat-label>
-      <mat-select [disabled]="true">
-        <mat-option value="option">Option</mat-option>
+      <mat-select >
+        <ng-container *ngFor="let year of years">
+
+          <mat-option value="year">{{year}}</mat-option>
+        </ng-container>
       </mat-select>
     </mat-form-field>
     <button class="bg-red-500 rounded-full  pt-[2px] h-7 w-7 align-middle text-white me-3">
       <mat-icon>search</mat-icon>
     </button>
   </div>
-  <div class="grid grid-cols-5 mx-28 gap-3">
+  <div *ngIf="loading" class="flex justify-center p-80">
+    <mat-progress-spinner
+        class="example-margin"
+        color="warn"
+        mode="indeterminate"
+        >
+    </mat-progress-spinner>
+  </div>
+  <div *ngIf="!loading" class="grid grid-cols-5 mx-28 gap-3">
     <ng-container *ngFor="let movie of movies">
 
       <app-card [movie]="movie" (viewEvent)="rediretcToDetail($event)" class="mb-7"></app-card>

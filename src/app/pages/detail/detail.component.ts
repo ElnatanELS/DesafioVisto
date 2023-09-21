@@ -1,5 +1,5 @@
 import { environment } from './../../../environments/environment';
-import { MovieDetail } from './../../../assets/models/movie-detail';
+import { MovieDetail } from '../../shared/models/movie-detail';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 

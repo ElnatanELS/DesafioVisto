@@ -1,8 +1,8 @@
-import { environment } from './../../../environments/environment';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
-import { Movie } from 'src/assets/models/movie';
+import { Movie } from 'src/app/shared/models/movie';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-card',
