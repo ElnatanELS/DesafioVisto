@@ -1,55 +1,79 @@
-<div class=" bg-black">
+<div class="bg-black">
   <div class="flex justify-end items-baseline">
-    <mat-form-field class="rounded-full me-3 caret-slate-600 " >
-      <mat-label>Titulo</mat-label>
-      <input class="rounded-full" matInput #input >
-    </mat-form-field>
+    <form [formGroup]="form" >
+      <mat-form-field class="rounded-full me-3 caret-slate-600">
+        <mat-label>Titulo</mat-label>
+        <input class="rounded-full" matInput #input formControlName="title"/>
+      </mat-form-field>
 
-    <mat-form-field class="rounded-full me-3">
-      <mat-label >Lançamento</mat-label>
-      <mat-select >
-        <ng-container *ngFor="let year of years">
-
-          <mat-option value="year">{{year}}</mat-option>
-        </ng-container>
-      </mat-select>
-    </mat-form-field>
-    <button class="bg-red-500 rounded-full  pt-[2px] h-7 w-7 align-middle text-white me-3">
-      <mat-icon>search</mat-icon>
-    </button>
+      <mat-form-field class="rounded-full me-3">
+        <mat-label>Lançamento</mat-label>
+        <mat-select  formControlName="year" >
+          <ng-container *ngFor="let year of years" >
+            <mat-option [value]="year">{{ year }}</mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+      <button
+        class="
+          bg-red-500
+          rounded-full
+          pt-[2px]
+          h-7
+          w-7
+          align-middle
+          text-white
+          me-3
+        "
+        (click)="getSearchMovies(pageIndex)">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button
+        class="
+          bg-red-500
+          rounded-full
+          pt-[2px]
+          h-7
+          w-7
+          align-middle
+          text-white
+          me-3
+        "
+        (click)="resetForm()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </form>
   </div>
   <div *ngIf="loading" class="flex justify-center p-80">
     <mat-progress-spinner
-        class="example-margin"
-        color="warn"
-        mode="indeterminate"
-        >
+      class="example-margin"
+      color="warn"
+      mode="indeterminate"
+    >
     </mat-progress-spinner>
   </div>
   <div *ngIf="!loading" class="grid grid-cols-5 mx-28 gap-3">
     <ng-container *ngFor="let movie of movies">
-
-      <app-card [movie]="movie" (viewEvent)="rediretcToDetail($event)" class="mb-7"></app-card>
+      <app-card
+        [movie]="movie"
+        (viewEvent)="rediretcToDetail($event)"
+        class="mb-7"
+      ></app-card>
     </ng-container>
-
-
-
   </div>
-  <div class="flex justify-center" >
+  <div class="flex justify-center">
     <mat-paginator
-    color="warn"
-    class="rounded-full bg-red-500 text-black mb-2"
-
-                 (page)="handlePageEvent($event)"
-                 [length]="length"
-                 [pageSize]="pageSize"
-                 [disabled]="disabled"
-                 [showFirstLastButtons]="showFirstLastButtons"
-                 [hidePageSize]="hidePageSize"
-                 [pageIndex]="pageIndex"
-                 aria-label="Select page">
-  </mat-paginator>
-
+      color="warn"
+      class="rounded-full bg-red-500 text-black mb-2"
+      (page)="handlePageEvent($event)"
+      [length]="length"
+      [pageSize]="pageSize"
+      [disabled]="disabled"
+      [showFirstLastButtons]="showFirstLastButtons"
+      [hidePageSize]="hidePageSize"
+      [pageIndex]="pageIndex"
+      aria-label="Select page"
+    >
+    </mat-paginator>
   </div>
-
 </div>

@@ -20,7 +20,7 @@ export class MovieService {
 
 
 
-    return this.http.get<Result>(environment.urlApi + '/popular', {params})
+    return this.http.get<Result>(environment.urlApi + '/movie/popular', {params})
   }
   getSearchMovie(page:number, name:string, year:string): Observable<Result>{
     var params:HttpParams = new HttpParams()
@@ -28,6 +28,7 @@ export class MovieService {
     params = params.append('page', page)
     params = params.append('query', name)
     params = params.append('include_adult', false)
+    console.log(year);
     if(year){
       params = params.append('primary_release_year', year)
 
@@ -36,6 +37,6 @@ export class MovieService {
 
 
 
-    return this.http.get<Result>(environment.urlApi + '/popular', {params})
+    return this.http.get<Result>(environment.urlApi + '/search/movie', {params})
   }
 }

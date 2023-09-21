@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeaderInterceptor } from './core/interceptor/header.interceptor';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { HeaderComponent } from './shared/components/header/header.component';
     BrowserAnimationsModule,
     HeaderComponent,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+
 
 
   ],

@@ -13,11 +13,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { CardComponent } from 'src/app/shared/components/card/card.component';
 import { range, Observable } from 'rxjs';
 import { rangeNumber } from 'src/app/shared/utils/rangeNumber';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, CardComponent, MatFormFieldModule, MatDatepickerModule, MatSelectModule, MatIconModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule],
+  imports: [CommonModule, CardComponent, MatFormFieldModule, MatDatepickerModule, MatSelectModule, MatIconModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, ReactiveFormsModule, FormsModule],
   providers: [MovieService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
@@ -36,12 +37,30 @@ export class HomeComponent implements OnInit{
   showFirstLastButtons = false;
   disabled = false;
   loading = false;
+  form: FormGroup = new FormGroup({
+    title: new FormControl(),
+    year: new FormControl({value:'',disabled:true}),
+  });
   constructor(private movieService:MovieService, private router:Router){}
 
   ngOnInit(): void {
+    this.disabledYear()
     this.getMovies(this.pageIndex)
-
   }
+
+  disabledYear(){
+    this.form.valueChanges.subscribe(
+      (value) => {
+        if(value.title != ''){
+          this.form.controls['year'].enable()
+        } else {
+          this.form.controls['year'].disable()
+
+        }
+      }
+    )
+  }
+
 
 
 
@@ -57,6 +76,25 @@ export class HomeComponent implements OnInit{
 
       }
     )
+  }
+  getSearchMovies(pages:number){
+    this.loading = true;
+    console.log(this.form.value);
+
+    this.movieService.getSearchMovie(pages + 1, this.form.value.title, this.form.value.year).subscribe(
+      res => {
+        this.length = res.total_results;
+        this.pageIndex = res.page - 1;
+        this.movies = res.results;
+        this.loading = false;
+
+      }
+    )
+  }
+
+  resetForm(){
+    this.form.reset();
+    this.getMovies(0)
   }
 
   handlePageEvent(e: PageEvent) {
