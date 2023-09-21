@@ -16,14 +16,11 @@
     </button>
   </div>
   <div class="grid grid-cols-5 mx-28 gap-3">
-    <app-card class="mb-7"></app-card>
-    <app-card class="mb-7"></app-card>
-    <app-card class="mb-7"></app-card>
-    <app-card class="mb-7"></app-card>
-    <app-card class="mb-7"></app-card>
-    <app-card class="mb-7"></app-card>
-    <app-card class="mb-7"></app-card>
-    <app-card class="mb-7"></app-card>
+    <ng-container *ngFor="let movie of movies">
+
+      <app-card [movie]="movie" (viewEvent)="rediretcToDetail($event)" class="mb-7"></app-card>
+    </ng-container>
+
 
 
   </div>
@@ -37,8 +34,7 @@
                  [pageSize]="pageSize"
                  [disabled]="disabled"
                  [showFirstLastButtons]="showFirstLastButtons"
-                 [pageSizeOptions]="showPageSizeOptions ? pageSizeOptions : []"
-                 [hidePageSize]="true"
+                 [hidePageSize]="hidePageSize"
                  [pageIndex]="pageIndex"
                  aria-label="Select page">
   </mat-paginator>
